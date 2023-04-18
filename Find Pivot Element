@@ -1,0 +1,43 @@
+
+import java.io.*;
+
+// Pivot index is defined as an index whose sum of the numbers to the left is equal
+// to the sum of the numbers to the right.
+// Given an array of integers, write a program to return the pivot index of the given
+// input array if no such index exists. If there are multiple pivot indexes, then
+// return the left-most pivot index.
+
+public class Main
+{
+	public static void main(String[] args) {
+	    Main main = new Main();
+	    int result = main.pivotIndex(new int[] {1, 2, 3, 4, 5});
+		System.out.println(result); // output is -1
+		int result2 = main.pivotIndex(new int[] {4,7,3,6,8,6});
+		System.out.println(result2); // output is 6 at index 3
+	}
+	
+// 1. Traverse the given input array Nums to calculate the sum of all its elements Sum.
+// 2. Again traverse the input array from start (index 0) to end (n-1, where n is the 
+//    length of an array) and calculate the sum of its traversed elements, LeftSum. if 
+//    at any index LeftSum is equal to Sum - LeftSum - Nums[i], then i is a pivot index.
+	
+// Solution
+	public int pivotIndex(int[] nums){
+	    int sum = 0;
+	    for(int value : nums){
+	        sum = sum + value;
+	    }
+	    
+	    int leftSum = 0, i = 0;
+	    for(i = 0; i<nums.length; i++){
+	        sum = sum - nums[i];
+	        if(leftSum==sum){
+	            return i;
+	        }
+	        leftSum = leftSum + nums[i];
+	    }
+	    return -1;
+	    
+	}
+}
