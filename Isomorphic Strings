@@ -1,0 +1,78 @@
+/******************************************************************************
+
+Given two strings s and t, determine if they are isomorphic.
+Two strings s and t are isomorphic if the characters in s can be replaced to get t.
+All occurrences of a character must be replaced with another character while 
+preserving the order of characters. No two characters may map to the same character, 
+but a character may map to itself. 
+(Two strings are isomorphic if one-to-one mapping is possible for every character 
+of the first string to every character of the second string.)
+*******************************************************************************/
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+public class Main
+{
+    public static boolean isIsormorphic(String str1, String str2){
+        //if different lengths, they cannot be iso...
+        if(str1.length() != str2.length()){
+            return false;
+        }
+        // use Java Map to store mappings of str1 chars to str2 chars
+        Map<Character, Character> map = new HashMap<>();
+        
+        // use a hash set to keep track of already mapped characters
+        Set<Character> set = new HashSet<>();
+        
+        for (int i =0; i < str1.length(); i++){
+            char c1 = str1.charAt(i), c2 = str2.charAt(i);
+            
+            // If c1 has been encountered before:
+            if (map.containsKey(c1)){
+                // return false if first occurence of c1 is mapped to different char
+                if (map.get(c1) != c2)
+                    return false;
+            }
+            // If c1 is encountered for the first time, it has not been mapped yet:
+            else{
+                //Return false if c2 is already mapped to some other char in str1
+                if (set.contains(c2))
+                    return false;
+                
+            // All checks passed. So insert in the map, and the set.
+                map.put(c1, c2);
+                set.add(c2);
+            }
+        }
+        return true;
+    }
+    
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		String str1 = "ACAB";
+		String str2 = "XCXY";
+		
+		if (isIsormorphic(str1, str2)){
+		    System.out.println(str1 + " and " + str2 + " are isomorphic.");
+		}
+		else{
+		    System.out.println(str1 + " and " + str2 + " are not isomorphic.");
+		}
+		
+		str1 = "ACKB";
+		str2 = "XCXY";
+		
+		if (isIsormorphic(str1, str2)){
+		    System.out.println(str1 + " and " + str2 + " are isomorphic.");
+		}
+		else{
+		    System.out.println(str1 + " and " + str2 + " are not isomorphic.");
+		}
+	}
+}
+
+// https://www.educative.io/answers/how-to-check-if-two-strings-are-isomorphic
+
+// https://leetcode.com/problems/isomorphic-strings/?envType=study-plan&id=level-1
