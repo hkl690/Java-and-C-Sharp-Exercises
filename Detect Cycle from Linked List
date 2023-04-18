@@ -1,0 +1,102 @@
+/******************************************************************************
+142. Linked List Cycle II
+
+Given the head of a linked list, return the node where the cycle begins. 
+If there is no cycle, return null.
+
+There is a cycle in a linked list if there is some node in the list that 
+can be reached again by continuously following the next pointer. Internally, 
+pos is used to denote the index of the node that tail's next pointer is 
+connected to (0-indexed). It is -1 if there is no cycle. Note that pos 
+is not passed as a parameter.
+
+Do not modify the linked list.
+
+https://blog.devgenius.io/leetcode-142-linked-list-cycle-ii-7cc3e587b6a0
+
+*******************************************************************************/
+public class Main
+{
+    // This method works in C#, too, just need to adjust main...
+    public ListNode detectCycle(ListNode head)
+    {
+        ListNode fast = head;
+        ListNode slow = head;
+        while(fast != null && fast.next != null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+            // slow == fast will mean cycle exists
+            if(fast == slow)
+            {
+                ListNode slow1 = head;
+                // If cycle exists, start slow1 from head
+                // and fast from the meeting point
+                while(slow != slow1)
+                {
+                    slow = slow.next;
+                    slow1 = slow1.next;
+                }
+                return slow;
+            }
+        }
+        return null;
+    }
+    // Definition of Linked List Node
+    public static class ListNode {
+        int val;
+        ListNode next;
+        public ListNode(int x)
+        {
+            val = x;
+        }
+    }
+    
+	public static void main(String[] args) {
+	    
+	    ListNode head = null;
+	    
+	    ListNode node = new ListNode(5);
+	    head = node;
+	    node.next = new ListNode(4);
+	    node = node.next;
+	    // This has a cycle:
+	    ListNode node10 = new ListNode(10);
+	    node.next = node10;
+	    node = node.next;
+	    
+	    node.next = new ListNode(15);
+	    node = node.next;
+	    node.next = new ListNode(1);
+	    node = node.next;
+	    node.next = new ListNode(7);
+	    node = node.next;
+	    node.next = node10;
+	    
+	    /*
+	    ListNode node20 = new ListNode(20);
+	    node.next = node20;
+	    node = node.next;
+	    
+	    node.next = new ListNode(25);
+	    node = node.next;
+	    node.next = new ListNode(78);
+	    node = node.next;
+	    node.next = new ListNode(70);
+	    node = node.next;
+	    node.next = null;
+	    */
+	    Main main = new Main();
+	    ListNode result = main.detectCycle(head);
+	    
+	    if (result == null)
+	    {
+	        System.out.print("No cycle.");
+	    }
+	    else
+	    {
+	        System.out.print("Cycle exists at " + result.val);
+	    }
+		
+	}
+}
