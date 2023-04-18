@@ -1,0 +1,24 @@
+import java.util.*;
+public class Main{
+    
+    public static void main(String[] args){
+        int sum = 0;
+        
+        int nums[] = {4,3,1,2,5,};
+        
+        
+        
+       
+        //traverse the Array
+        for (int i =0; i<nums.length; i++){
+            //find sum
+            sum += nums[i];
+            
+            //replace
+            nums[i] = sum;
+        }
+       
+            System.out.println("Cumulative sum is: " + (Arrays.toString(nums)));
+        
+    }
+}
